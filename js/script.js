@@ -88,4 +88,44 @@ function getClock(num){  // условие для того чтобы отобр
         }
     }
     setClock('.timer', dedlain);
+
+//создание модального окна
+  
+const modalTriger = document.querySelectorAll('[data-modal]'),
+modal = document.querySelector ('.modal'),
+modalClose = document.querySelector('[data-close]');
+
+
+modalTriger.forEach(btn =>{  // перебирает все кнопеи с классом data-modal
+    btn.addEventListener ('click', () => {
+        modal.classList.add('show'); // класс show показать
+        modal.classList.remove('hide');
+        document.body.style.overflow = 'hidden'; //приминили свойства в теги бади хиден оно останвливает прокрутку скрлом перемешение по сайту
+        });
+});
+
+function closeModal() {
+    modal.classList.add('hide'); // класс show показать
+    modal.classList.remove('show');
+    document.body.style.overflow = '';//приминили свойствo оно возвращает в работу прокрутку скрлом перемешение по сайту
+
+}
+
+modalClose.addEventListener ( 'click',closeModal); // после клика вызовем функцию closeModal 
+
+modal.addEventListener( 'click', (e) =>{ // событие по которому кликаешь не модально окно закрывает модальное окно 
+if ( e.target === modal){ //e.target элемент события
+    closeModal();
+}
+
+});
+
+document.addEventListener( 'keydown', (e) => { // event.cod cобытие когда нажимаем на клавиатуру а имеено esc вызывается метод закрытия
+    if( e.code === 'Escape' && modal.classList.contains('show')) {//нажата ди клавиша esc и установлен ли класс show (показано ли модальное окно)
+        closeModal();
+    }
+});
+
+
+
 });
